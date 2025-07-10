@@ -21,14 +21,22 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(main src/main.cpp)
-target_compile_features(main PRIVATE cxx_std_17)
-target_link_libraries(main PRIVATE SFML::Graphics SFML::Window SFML::Audio)
+add_executable(rpg src/main.cpp)
+target_compile_features(rpg PRIVATE cxx_std_17)
+target_link_libraries(rpg PRIVATE SFML::Graphics SFML::Window SFML::Audio)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     message(STATUS "Debug mode ON")
-    target_compile_definitions(main PRIVATE DEBUG_MODE=1)
+    target_compile_definitions(rpg PRIVATE DEBUG_MODE=1)
 elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
     message(STATUS "Release mode ON")
-    target_compile_definitions(main PRIVATE NDEBUG)
+    target_compile_definitions(rpg PRIVATE NDEBUG)
 endif()
+
+add_custom_command(
+        TARGET rpg
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/assets
+        $<TARGET_FILE_DIR:rpg>/assets
+)
