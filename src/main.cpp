@@ -19,8 +19,8 @@ int main() {
 
     const sf::Texture playerTexture("assets/player/textures/spritesheet.png");
 
-    const int frameWidth = 32;
-    const int frameHeight = 32;
+    constexpr int frameWidth = 32;
+    constexpr int frameHeight = 32;
     const int frameCount = 6;
     const float frameDuration = 0.1f;
 
